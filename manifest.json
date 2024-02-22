@@ -11,7 +11,9 @@
         "persistent": true,
         "default_popup": "pop.html",
         "default_icon": {
-            "16": "icons/camera.png"
+            "16": "icons/gfg.png",
+      "48": "icons/gfg.png",
+      "128": "icons/gfg.png"
         }
     },
     "manifest_version": 2
