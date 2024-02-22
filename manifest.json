@@ -1,0 +1,22 @@
+{
+    "name": "GFG-Collab",
+    "version": "1.0.0",
+    "permissions": [           
+        "activeTab"      ,
+        "audioCapture",
+        "videoCapture"   
+    ],
+    "background": {
+        "scripts": ["background.js"],
+        "persistent": true
+      },
+    "browser_action": {
+        "persistent": true,
+        "default_popup": "pop.html",
+        "default_icon": {
+            "16": "icons/camera.png"
+        }
+    },
+    "manifest_version": 2
+  }
+  
