@@ -5,6 +5,7 @@
 }
 
 .video-player {
+   
      /* This makes the video container circular */
     overflow: hidden; /* Ensures that the video stays within the circular container */
     height: 50vh; /* 50% of the viewport height */
