@@ -19,7 +19,7 @@ body{
     border-radius: 10px 10px 0 0;
     padding: 30px;
     text-align: center;
-    background-color: #363739;
+    background-color: #2f8c47;
     margin: 0;
     font-size: 18px;
     font-size: 300;
@@ -45,6 +45,6 @@ input {
  
  
   input[type='submit'] {
-    background-color: #845695;
+    background-color: #2f8c47;
  
   }

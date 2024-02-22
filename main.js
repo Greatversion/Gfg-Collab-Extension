@@ -17,6 +17,7 @@ if(!roomId){
 
 let localStream;
 let remoteStream;
+
 let peerConnection;
 
 const servers = {
@@ -52,7 +53,10 @@ let init = async () => {
     client.on('MessageFromPeer', handleMessageFromPeer)
 
     localStream = await navigator.mediaDevices.getUserMedia(constraints)
+    
+
     document.getElementById('user-1').srcObject = localStream
+    
     document.getElementById('screen-share-btn').addEventListener('click', toggleScreenShare);
    
 }
@@ -108,7 +112,7 @@ let createPeerConnection = async (MemberId) => {
     localStream.getTracks().forEach((track) => {
         peerConnection.addTrack(track, localStream)
     })
-
+ 
     peerConnection.ontrack = (event) => {
         event.streams[0].getTracks().forEach((track) => {
             remoteStream.addTrack(track)
@@ -182,26 +186,48 @@ let toggleMic = async () => {
 let toggleScreenShare = async () => {
     try {
         if (!screenSharing) {
-            const stream = await navigator.mediaDevices.getDisplayMedia({ video: true });
-            replaceTrack(localStream, stream);
             screenSharing = true;
+            const screenStream = await navigator.mediaDevices.getDisplayMedia({ video: true });
+            const videoTrack = screenStream.getVideoTracks()[0];
+            const audioTrack = localStream.getAudioTracks()[0];
+            localStream.removeTrack(localStream.getVideoTracks()[0]);
+            localStream.addTrack(videoTrack);
+            peerConnection.getSenders().forEach(sender => {
+                if (sender.track.kind === 'video') {
+                    sender.replaceTrack(videoTrack);
+                }
+            });
+            screenStream.getVideoTracks()[0].addEventListener('ended', () => {
+                toggleScreenShare(); // Toggle back to local view when screen sharing ends
+            });
         } else {
-            replaceTrack(localStream, await navigator.mediaDevices.getUserMedia(constraints));
-            screenSharing = false;
+            await stopScreenSharing(); // Call the function to stop screen sharing
         }
     } catch (error) {
         console.error('Error accessing screen sharing:', error);
     }
 };
-
-let replaceTrack = (stream, newStream) => {
-    const videoTrack = newStream.getVideoTracks()[0];
-    const sender = peerConnection.getSenders().find(s => s.track.kind === videoTrack.kind);
-    sender.replaceTrack(videoTrack);
-    stream.getTracks().forEach(track => track.stop());
-    localStream = newStream;
-    document.getElementById('user-1').srcObject = localStream;
+let stopScreenSharing = async () => {
+    try {
+        screenSharing = false;
+        const videoTrack = localStream.getVideoTracks()[0];
+        const newStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+        const newVideoTrack = newStream.getVideoTracks()[0];
+        localStream.removeTrack(videoTrack);
+        localStream.addTrack(newVideoTrack);
+        peerConnection.getSenders().forEach(sender => {
+            if (sender.track.kind === 'video') {
+                sender.replaceTrack(newVideoTrack);
+            }
+        });
+    } catch (error) {
+        console.error('Error stopping screen sharing:', error);
+    }
 };
+
+
+
+
 
 
 window.addEventListener('beforeunload', leaveChannel)
@@ -209,9 +235,11 @@ window.addEventListener('beforeunload', leaveChannel)
 
 document.getElementById('camera-btn').addEventListener('click', toggleCamera)
 document.getElementById('mic-btn').addEventListener('click', toggleMic)
+document.getElementById('leave-btn').addEventListener('click', toggleMic)
 document.addEventListener('DOMContentLoaded', function() {
     document.addEventListener('click', function(event) {
         event.preventDefault();
     });
 });
+
 init()

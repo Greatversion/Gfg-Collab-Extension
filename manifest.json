@@ -6,10 +6,7 @@
         "audioCapture",
         "videoCapture"   
     ],
-    "background": {
-        "scripts": ["background.js"],
-        "persistent": true
-      },
+ 
     "browser_action": {
         "persistent": true,
         "default_popup": "pop.html",
