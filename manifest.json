@@ -12,7 +12,7 @@
       },
     "browser_action": {
         "persistent": true,
-        "default_popup": "pop.html",
+        "default_popup": "index.html",
         "default_icon": {
             "16": "icons/camera.png"
         }
