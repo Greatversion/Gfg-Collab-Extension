@@ -235,7 +235,7 @@ window.addEventListener('beforeunload', leaveChannel)
 
 document.getElementById('camera-btn').addEventListener('click', toggleCamera)
 document.getElementById('mic-btn').addEventListener('click', toggleMic)
-document.getElementById('leave-btn').addEventListener('click', toggleMic)
+document.getElementById('leave-btn').addEventListener('click', stopScreenSharing)
 document.addEventListener('DOMContentLoaded', function() {
     document.addEventListener('click', function(event) {
         event.preventDefault();
