@@ -107,37 +107,39 @@ let handleUserJoined = async (memberId) => {
 
 
 let createPeerConnection = async (MemberId) => {
-    peerConnection = new RTCPeerConnection(servers)
+    peerConnection = new RTCPeerConnection(servers);
 
-    remoteStream = new MediaStream()
-    document.getElementById('user-2').srcObject = remoteStream
-    document.getElementById('user-2').style.display = 'block'
+    remoteStream = new MediaStream();
+    document.getElementById('user-2').srcObject = remoteStream;
+    document.getElementById('user-2').style.display = 'block';
+    document.getElementById('user-1').classList.add('smallFrame');
 
-    document.getElementById('user-1').classList.add('smallFrame')
-
-
-    if(!localStream){
-        localStream = await navigator.mediaDevices.getUserMedia(constraints)
-        document.getElementById('user-1').srcObject = localStream
+    if (!localStream) {
+        localStream = await navigator.mediaDevices.getUserMedia(constraints);
+        document.getElementById('user-1').srcObject = localStream;
     }
 
     localStream.getTracks().forEach((track) => {
-        peerConnection.addTrack(track, localStream)
-    })
- 
+        if (track.kind === 'audio') {
+            // Exclude audio track for local user to avoid echo
+            return;
+        }
+        peerConnection.addTrack(track, localStream);
+    });
+
     peerConnection.ontrack = (event) => {
         event.streams[0].getTracks().forEach((track) => {
-            remoteStream.addTrack(track)
-        })
-    }
+            remoteStream.addTrack(track);
+        });
+    };
 
     peerConnection.onicecandidate = async (event) => {
-        if(event.candidate){
-            client.sendMessageToPeer({text:JSON.stringify({'type':'candidate', 'candidate':event.candidate})}, MemberId)
+        if (event.candidate) {
+            client.sendMessageToPeer({ text: JSON.stringify({ 'type': 'candidate', 'candidate': event.candidate }) }, MemberId);
         }
-    }
-  
-}
+    };
+};
+
 let sendMessage = async (memberId) => {
     let message = window.prompt('Enter your message:');
     if (message !== null && message.trim() !== '') {
