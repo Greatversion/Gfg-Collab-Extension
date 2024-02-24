@@ -1,8 +1,9 @@
 {
     "name": "GFG-Collab",
-    "version": "1.0.0",
+    "version": "1.1.0",
+    "description":  "Our extension for GeeksForGeeks revolutionizes collaborative coding using WebRTC with seamless screen sharing and messaging features, users can now collaborate in real-time, boosting productivity and enabling effective communication during coding sessions."   ,
     "permissions": [           
-        "activeTab"      ,
+        "activeTab",
         "audioCapture",
         "videoCapture"   
     ],
