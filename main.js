@@ -31,7 +31,8 @@ let constraints = {
         width: { min: 640, ideal: 1920, max: 1920 },
         height: { min: 480, ideal: 1080, max: 1080 },
     },
-    audio: true
+    audio:{
+        'echoCancellation': true}
 };
 
 let init = async () => {
@@ -126,7 +127,7 @@ let createPeerConnection = async (MemberId) => {
 
 
     if(!localStream){
-        localStream = await navigator.mediaDevices.getUserMedia({video:true,audio:false})
+        localStream = await navigator.mediaDevices.getUserMedia(constraints)
         document.getElementById('user-1').srcObject = localStream
     }
 
