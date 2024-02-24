@@ -1,4 +1,4 @@
-# Collaborative Coding Extension for GeeksForGeeks <img src="icons/gfg.ico"/>
+# Collaborative Coding Extension for GeeksForGeeks  <img src="icons/gfg.ico"/>
 
 ## Overview
 
