@@ -124,17 +124,19 @@ let createPeerConnection = async (MemberId) => {
 
     document.getElementById('user-1').classList.add('smallFrame')
 
-    // Add only video tracks from localStream
-    localStream.getVideoTracks().forEach((track) => {
+
+    if(!localStream){
+        localStream = await navigator.mediaDevices.getUserMedia({video:true,audio:false})
+        document.getElementById('user-1').srcObject = localStream
+    }
+
+    localStream.getTracks().forEach((track) => {
         peerConnection.addTrack(track, localStream)
     })
-
+ 
     peerConnection.ontrack = (event) => {
-        // Filter out local audio track and add only remote tracks to remoteStream
         event.streams[0].getTracks().forEach((track) => {
-            if (track.kind === 'video') {
-                remoteStream.addTrack(track)
-            }
+            remoteStream.addTrack(track)
         })
     }
 
@@ -144,6 +146,7 @@ let createPeerConnection = async (MemberId) => {
         }
     }
 }
+
 
 
 let sendMessage = async () => {
@@ -301,7 +304,7 @@ document.getElementById('leave-btn').addEventListener('click', stopScreenSharing
 document.addEventListener('DOMContentLoaded', function() {
     
 init();
-    // document.addEventListener('click', function(event) {
-    //     event.preventDefault();
-    // });
+    document.addEventListener('click', function(event) {
+        event.preventDefault();
+    });
 });
