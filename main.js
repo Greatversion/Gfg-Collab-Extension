@@ -145,6 +145,7 @@ let createPeerConnection = async (MemberId) => {
     }
 }
 
+
 let sendMessage = async () => {
     let message = window.prompt('Enter your message:');
     if (message !== null && message.trim() !== '') {
