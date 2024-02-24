@@ -1,7 +1,3 @@
-Certainly! Below is an elaborative README file for your project:
-
----
-
 # Collaborative Coding Extension for GeeksForGeeks
 
 ## Overview
