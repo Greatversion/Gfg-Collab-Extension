@@ -28,12 +28,12 @@
     position: fixed;
     top: 10px;
     left: 5x;
-    background-color: chartreuse;
+    background-color: rgb(47, 140, 71);
     z-index: 1; /* Ensure user-1 is above user-2 */
 }
 
 #user-2-container {
-    background-color: chartreuse;
+    background-color:rgb(47, 140, 71);
     height: 100vh;
     width: 100vw;
 }
@@ -54,7 +54,46 @@
     display: flex;
     gap: 1em;
 }
-
+.custom-alert {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(47, 140, 71);
+    /* border: 1px solid black; */
+    padding: 20px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    border-radius: 15px;
+    /* font-weight: bolder; */
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+  }
+  
+  .custom-alert-content {
+    text-align: center;
+  }
+  
+  .custom-alert-message {
+    color: white;
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  .custom-alert-button {
+    padding: 8px 12px;
+    background-color: white;
+    color: rgb(47, 140, 71);
+    border: 1px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 10px;
+  }
+  
+  .custom-alert-button:hover {
+    background-color: #005aba;
+    color: white;
+  }
+  
 .control-container {
     background-color: rgb(47, 140, 71);
     padding: 20px;

@@ -46,7 +46,7 @@ let init = async () => {
 
     client.on('MessageFromPeer', handleMessageFromPeer);
 
-    localStream = await navigator.mediaDevices.getUserMedia({video:true,audio:false});
+    localStream = await navigator.mediaDevices.getUserMedia(constraints);
     document.getElementById('user-1').srcObject = localStream;
 
     document.getElementById('screen-share-btn').addEventListener('click', toggleScreenShare);
@@ -56,10 +56,12 @@ let init = async () => {
 
     // Send message to all members who have joined the channel
     document.getElementById('send-btn').addEventListener('click', () => sendMessage(MemberId));
+    // sendMessage()
+
 };
 
 
-let handleUserLeft = (MemberId) => {
+let handleUserLeft = () => {
     document.getElementById('user-2').style.display = 'none'
     document.getElementById('user-1').classList.remove('smallFrame')
 }
@@ -69,20 +71,27 @@ let handleMessageFromPeer = async (message, MemberId) => {
     message = JSON.parse(message.text)
 
     if (message.type === 'message') {
-        console.log('Received message:', message.message);
         // Display message in alert with Copy button
-        let confirmation = confirm(`Message from peer : ${message.message}\n\nClick OK to copy the message to clipboard.`);
-        if (confirmation) {
-            // Copy message to clipboard
-            navigator.clipboard.writeText(message.message)
-                .then(() => {
-                    alert('Message copied to clipboard!');
-                })
-                .catch(err => {
-                    console.error('Error copying to clipboard:', err);
-                });
-        }
+        showAlert(`Message from Geek peer : \n ${message.message}`, () => {
+            // Add event listener to the copy button
+            document.getElementById('btn-2').addEventListener('click', () => {
+                // Get the message text
+                let messageText = message.message;
+        
+                // Copy the message to clipboard
+                navigator.clipboard.writeText(messageText)
+                    .then(() => {
+                       
+                        document.getElementById('custom-alert').style.display = 'none';
+                        // showAlert('Message copied to clipboard!');
+                    })
+                    .catch(err => {
+                        console.error('Error copying to clipboard:', err);
+                    });
+            });
+        });
     }
+    
     if(message.type === 'offer'){
         createAnswer(MemberId, message.offer)
     }
@@ -100,8 +109,8 @@ let handleMessageFromPeer = async (message, MemberId) => {
 
 let handleUserJoined = async (memberId) => {
     MemberId = memberId; // Set the MemberId when a user joins the channel
-    console.log('A new user joined the channel:', memberId);
-    createOffer(memberId);
+    // console.log('A new user joined the channel:', memberId);
+    createOffer(MemberId);
 };
 
 
@@ -115,19 +124,17 @@ let createPeerConnection = async (MemberId) => {
 
     document.getElementById('user-1').classList.add('smallFrame')
 
-
-    if(!localStream){
-        localStream = await navigator.mediaDevices.getUserMedia(constraints)
-        document.getElementById('user-1').srcObject = localStream
-    }
-
-    localStream.getTracks().forEach((track) => {
+    // Add only video tracks from localStream
+    localStream.getVideoTracks().forEach((track) => {
         peerConnection.addTrack(track, localStream)
     })
- 
+
     peerConnection.ontrack = (event) => {
+        // Filter out local audio track and add only remote tracks to remoteStream
         event.streams[0].getTracks().forEach((track) => {
-            remoteStream.addTrack(track)
+            if (track.kind === 'video') {
+                remoteStream.addTrack(track)
+            }
         })
     }
 
@@ -136,17 +143,26 @@ let createPeerConnection = async (MemberId) => {
             client.sendMessageToPeer({text:JSON.stringify({'type':'candidate', 'candidate':event.candidate})}, MemberId)
         }
     }
-  
 }
-let sendMessage = async (memberId) => {
+
+let sendMessage = async () => {
     let message = window.prompt('Enter your message:');
     if (message !== null && message.trim() !== '') {
-        console.log('Sending message:', message);
-        client.sendMessageToPeer({ text: JSON.stringify({ 'type': 'message', 'message': message }) }, memberId);
+        // console.log('Sending message:', message);
+        channel.getMembers().then(members => {
+            members.forEach(member => {
+                if (member !== uid) {
+                    client.sendMessageToPeer({ text: JSON.stringify({ 'type': 'message', 'message': message }) }, member);
+                }
+            });
+        }).catch(error => {
+            console.error('Error getting channel members:', error);
+        });
     } else {
-        alert('Please enter a non-empty message.');
+        showAlert('Please enter a non-empty message.');
     }
 };
+
 
 let createOffer = async (MemberId) => {
     await createPeerConnection(MemberId)
@@ -250,9 +266,25 @@ let stopScreenSharing = async () => {
         // Redirect to lobby
         window.location = 'lobby.html';
     } catch (error) {
-        console.error('Error stopping screen sharing:', error);
+        // console.error('Error stopping screen sharing:', error);
     }
 };
+// Function to show custom alert
+function showAlert(message, callback) {
+    document.getElementById('custom-alert-message').innerText = message;
+    document.getElementById('custom-alert').style.display = 'block';
+  
+    // If callback is provided, execute it when OK button is clicked
+    if (callback && typeof callback === 'function') {
+      document.getElementById('btn-2').onclick = callback;
+    //   callback();
+    } else {
+      // Default behavior: Hide the alert when OK button is clicked
+      document.getElementById('btn-2').onclick = function() {
+        document.getElementById('custom-alert').style.display = 'none';
+      };
+    }
+  }
 
 
 
@@ -266,9 +298,9 @@ document.getElementById('leave-btn').addEventListener('click', stopScreenSharing
 
 
 document.addEventListener('DOMContentLoaded', function() {
-    document.addEventListener('click', function(event) {
-        event.preventDefault();
-    });
+    
+init();
+    // document.addEventListener('click', function(event) {
+    //     event.preventDefault();
+    // });
 });
-
-init()
