@@ -42,6 +42,7 @@ To use the Collaborative Coding Extension for GeeksForGeeks, follow these steps:
 3. **Start Collaboration**: Start a coding session and invite peers to join. Use the screen sharing and messaging features to collaborate in real-time.
 
 ##Project Collaborators
--> Abhinav Singh https://github.com/mr-kamenari
--> Ashish Yadav https://github.com/SachinAshish
+
+### Abhinav Singh https://github.com/mr-kamenari
+### Ashish Yadav https://github.com/SachinAshish
 
