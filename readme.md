@@ -4,14 +4,17 @@
 
 ## Overview
 
-This collaborative coding extension for GeeksForGeeks enhances the coding experience by incorporating real-time collaboration features using WebRTC technology. It enables users to share their screens, exchange messages, and collaborate effectively during coding sessions. The extension is built using HTML, CSS, JavaScript, the WebRTC API, Agora Signaling SDK, and STUN servers.
+The GeeksForGeeks collaborative coding extension revolutionizes the coding experience by seamlessly integrating real-time collaboration features through cutting-edge WebRTC technology. Users can now elevate their coding sessions by effortlessly sharing screens, exchanging messages, and collaborating dynamically. Crafted with a skillful blend of HTML, CSS, and JavaScript, this extension harnesses the power of the WebRTC API, Agora Signaling SDK, and STUN servers to ensure a smooth and immersive collaborative coding environment. Embrace the future of coding collaboration with this innovative extension on the GeeksForGeeks platform.
 
 ## Features
 
-- **Screen Sharing**: Users can share their screens with peers in real-time, allowing them to view and edit code together.
-- **Messaging**: The extension facilitates instant messaging between users, enabling seamless communication during coding sessions.
-- **Real-time Collaboration**: With WebRTC, users can collaborate on coding projects simultaneously, enhancing productivity and teamwork.
-- **User-Friendly Interface**: The extension provides a user-friendly interface for easy navigation and intuitive usage.
+**Screen Collaboration**: Unlock the power of collaborative coding with real-time screen sharing. Experience the synergy as users seamlessly share their screens, enabling joint code viewing and editing for a truly synchronized coding journey.
+
+**Instant Communication**: Foster communication excellence during coding sessions through the messaging feature. The extension facilitates swift and efficient messaging between users, promoting a fluid exchange of ideas and problem-solving.
+
+**Dynamic Real-time Collaboration**: Elevate coding projects to new heights with WebRTC-enabled real-time collaboration. Simultaneously work on coding tasks, boosting productivity and fostering a sense of teamwork that transcends geographical boundaries.
+
+**Intuitively Designed Interface**: Navigate effortlessly with the extension's intuitively crafted interface. Designed with user-friendliness in mind, it ensures a smooth and enjoyable collaborative coding experience, making teamwork a breeze.
 
 ## Technologies Used
 
