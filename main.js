@@ -283,12 +283,16 @@ function showAlert(message, callback) {
     if (callback && typeof callback === 'function') {
       document.getElementById('btn-2').onclick = callback;
     //   callback();
-    } else {
+    } 
+    else {
       // Default behavior: Hide the alert when OK button is clicked
       document.getElementById('btn-2').onclick = function() {
         document.getElementById('custom-alert').style.display = 'none';
       };
     }
+    document.getElementById('btn-3').onclick = function() {
+        document.getElementById('custom-alert').style.display = 'none';
+      };
   }
 
 
