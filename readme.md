@@ -6,8 +6,9 @@
 
 This collaborative coding extension for GeeksForGeeks enhances the coding experience by incorporating real-time collaboration features using WebRTC technology. It enables users to share their screens, exchange messages, and collaborate effectively during coding sessions. The extension is built using HTML, CSS, JavaScript, the WebRTC API, Agora Signaling SDK, and STUN servers.
 
-![WhatsApp Image 2024-02-28 at 00 24 19_b007876b](https://github.com/Greatversion/Gfg-Collab-Extension/assets/105535211/7e83980f-e071-4a3b-81f9-2e3a093d468e)  
-![Screenshot 2024-02-28 002438](https://github.com/Greatversion/Gfg-Collab-Extension/assets/105535211/67c406da-4dcc-42c9-bd97-327a28d0a778)
+![WhatsApp Image 2024-02-28 at 00 24 19_b007876b](https://github.com/Greatversion/Gfg-Collab-Extension/assets/105535211/7e83980f-e071-4a3b-81f9-2e3a093d468e)   ![WhatsApp Image 2024-02-28 at 00 39 02_49378070](https://github.com/Greatversion/Gfg-Collab-Extension/assets/105535211/3cb453f4-e7c7-4948-a627-25324179697e)
+
+
 
 
 
