@@ -45,7 +45,7 @@ To use the Collaborative Coding Extension for GeeksForGeeks, follow these steps:
 
 1. **Install the Extension**: Download and install the extension from the Chrome Web Store.
 2. **Login to GeeksForGeeks**: Sign in to your GeeksForGeeks account to access the coding environment.
-3. **Start Collaboration**: Start a coding session and invite peers to join. Use the screen sharing and messaging features to collaborate in real-time.
+3. **Start Collaboration**: Start a coding session by creating a meeting ID and invite peers to join with the Code. Use the screen sharing and messaging features to collaborate in real-time.
 
 
 ## Project Collaborators
